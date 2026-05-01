@@ -2,16 +2,22 @@ import { AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn } from
 import { timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export const confirmPasswordValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
-  return null; // placeholder
+export const confirmPasswordValidator: ValidatorFn = (
+  group: AbstractControl,
+): ValidationErrors | null => {
+  const password = group.get('password')?.value;
+  const confirmPassword = group.get('confirmPassword')?.value;
+  return password === confirmPassword ? null : { passwordMismatch: true };
 };
 
 export function minAgeValidator(min: number): ValidatorFn {
-  return (_control: AbstractControl): ValidationErrors | null => {
-    return null; // placeholder
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = Number(control.value);
+    return value >= min ? null : { minAge: { required: min, actual: value } };
   };
 }
 
 export const emailInUseValidator: AsyncValidatorFn = (control: AbstractControl) => {
-  return timer(1000).pipe(map(() => null)); // placeholder
+  const takenEmail = 'dan@gmail.com';
+  return timer(1000).pipe(map(() => (control.value === takenEmail ? { emailInUse: true } : null)));
 };
