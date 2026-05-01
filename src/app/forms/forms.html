@@ -96,7 +96,15 @@
           <span class="error-message">Age is required.</span>
         }
         @if (formGroup.controls.age.errors?.['minAge']) {
-          <span class="error-message">You must be at least 18 years old.</span>
+          <span class="error-message"
+            >You must be at least {{ formGroup.controls.age.errors?.['minAge'].required }} years
+            old.</span
+          >
+        }
+        @if (formGroup.controls.age.errors?.['max']) {
+          <span class="error-message"
+            >Age cannot be greater than {{ formGroup.controls.age.errors?.['max'].max }}</span
+          >
         }
       </div>
     }

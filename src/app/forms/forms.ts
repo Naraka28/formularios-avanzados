@@ -17,7 +17,7 @@ export class Forms {
       email: ['', [Validators.required, Validators.email], [emailInUseValidator]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
-      age: [, [Validators.required, minAgeValidator(18)]],
+      age: [null, [Validators.required, minAgeValidator(18), Validators.max(128)]],
       termsAndConditions: [false, [Validators.requiredTrue]],
     },
     { validators: [confirmPasswordValidator] },
@@ -25,7 +25,7 @@ export class Forms {
 
   onSubmit() {
     if (this.formGroup.valid) {
-      console.log(`Enviado :o, ${JSON.stringify(this.formGroup.value)}`);
+      console.log(`Enviado jeje :D, ${JSON.stringify(this.formGroup.value)}`);
       this.formGroup.reset();
     }
   }
