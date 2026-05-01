@@ -24,6 +24,9 @@ export class Forms {
   );
 
   onSubmit() {
-    console.log(`Enviado :o, ${JSON.stringify(this.formGroup.value)}`);
+    if (this.formGroup.valid) {
+      console.log(`Enviado :o, ${JSON.stringify(this.formGroup.value)}`);
+      this.formGroup.reset();
+    }
   }
 }
