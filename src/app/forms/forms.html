@@ -1,0 +1,124 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="styled-form">
+  <h2>Create Account</h2>
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input id="name" formControlName="name" type="text" placeholder="Enter your name" />
+    @if (
+      (formGroup.controls.name.touched || formGroup.controls.name.dirty) &&
+      formGroup.controls.name.invalid
+    ) {
+      <div class="error-container">
+        @if (formGroup.controls.name.errors?.['required']) {
+          <span class="error-message">Name is required.</span>
+        }
+        @if (formGroup.controls.name.errors?.['minlength']) {
+          <span class="error-message">Name must be at least 3 characters.</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" placeholder="email@example.com" />
+    @if (formGroup.controls.email.pending) {
+      <span class="pending-message">Checking availability...</span>
+    }
+    @if (
+      (formGroup.controls.email.touched || formGroup.controls.email.dirty) &&
+      formGroup.controls.email.invalid
+    ) {
+      <div class="error-container">
+        @if (formGroup.controls.email.errors?.['required']) {
+          <span class="error-message">Email is required.</span>
+        }
+        @if (formGroup.controls.email.errors?.['email']) {
+          <span class="error-message">Enter a valid email address.</span>
+        }
+        @if (formGroup.controls.email.errors?.['emailInUse']) {
+          <span class="error-message">This email is already in use.</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input id="password" type="password" formControlName="password" placeholder="********" />
+    @if (
+      (formGroup.controls.password.touched || formGroup.controls.password.dirty) &&
+      formGroup.controls.password.invalid
+    ) {
+      <div class="error-container">
+        @if (formGroup.controls.password.errors?.['required']) {
+          <span class="error-message">Password is required.</span>
+        }
+        @if (formGroup.controls.password.errors?.['minlength']) {
+          <span class="error-message">Password must be at least 8 characters.</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="confirmPassword">Confirm Password</label>
+    <input
+      id="confirmPassword"
+      type="password"
+      formControlName="confirmPassword"
+      placeholder="********"
+    />
+    @if (
+      (formGroup.controls.confirmPassword.touched || formGroup.controls.confirmPassword.dirty) &&
+      (formGroup.controls.confirmPassword.invalid || formGroup.errors?.['passwordMismatch'])
+    ) {
+      <div class="error-container">
+        @if (formGroup.controls.confirmPassword.errors?.['required']) {
+          <span class="error-message">Please confirm your password.</span>
+        }
+        @if (formGroup.errors?.['passwordMismatch']) {
+          <span class="error-message">Passwords do not match.</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="age">Age</label>
+    <input id="age" type="number" formControlName="age" />
+    @if (
+      (formGroup.controls.age.touched || formGroup.controls.age.dirty) &&
+      formGroup.controls.age.invalid
+    ) {
+      <div class="error-container">
+        @if (formGroup.controls.age.errors?.['required']) {
+          <span class="error-message">Age is required.</span>
+        }
+        @if (formGroup.controls.age.errors?.['minAge']) {
+          <span class="error-message">You must be at least 18 years old.</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="form-group checkbox-group">
+    <input id="termsAndConditions" type="checkbox" formControlName="termsAndConditions" />
+    <label for="termsAndConditions">I agree to the terms & conditions</label>
+    @if (
+      (formGroup.controls.termsAndConditions.touched ||
+        formGroup.controls.termsAndConditions.dirty) &&
+      formGroup.controls.termsAndConditions.invalid
+    ) {
+      <div class="error-container">
+        @if (formGroup.controls.termsAndConditions.errors?.['required']) {
+          <span class="error-message">Required</span>
+        }
+      </div>
+    }
+  </div>
+
+  <button type="submit" [disabled]="!formGroup.valid || formGroup.pending" class="submit-btn">
+    Submit
+  </button>
+</form>
